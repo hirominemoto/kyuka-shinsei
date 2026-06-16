@@ -16,8 +16,6 @@
     --accent: #3d5a99;
     --accent-light: #e8edf8;
     --border: #dddde8;
-    --danger: #c0392b;
-    --success: #27ae60;
     --stamp-red: #c0392b;
   }
 
@@ -30,7 +28,6 @@
     min-height: 100vh;
   }
 
-  /* ===== TOP MENU ===== */
   .top-bar {
     background: var(--accent);
     color: white;
@@ -39,362 +36,141 @@
     align-items: center;
     gap: 12px;
   }
-  .top-bar h1 {
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-  }
+  .top-bar h1 { font-size: 18px; font-weight: 500; letter-spacing: 0.05em; }
   .top-bar .icon { font-size: 22px; }
 
-  /* ===== MENU SCREEN ===== */
-  #menuScreen {
-    max-width: 700px;
-    margin: 48px auto;
-    padding: 0 24px;
-  }
-  .menu-title {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--ink-muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  .menu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
+  #menuScreen { max-width: 700px; margin: 48px auto; padding: 0 24px; }
+  .menu-title { font-size: 13px; font-weight: 500; color: var(--ink-muted); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px; }
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .menu-card {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px 20px;
-    cursor: pointer;
-    transition: all 0.18s ease;
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
+    background: var(--bg-white); border: 1px solid var(--border); border-radius: 10px;
+    padding: 24px 20px; cursor: pointer; transition: all 0.18s ease;
+    display: flex; align-items: flex-start; gap: 14px;
   }
-  .menu-card:hover {
-    border-color: var(--accent);
-    background: var(--accent-light);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(61,90,153,0.12);
-  }
-  .menu-card .card-icon {
-    font-size: 28px;
-    flex-shrink: 0;
-  }
-  .menu-card .card-text h3 {
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-  .menu-card .card-text p {
-    font-size: 12px;
-    color: var(--ink-muted);
-    line-height: 1.5;
-  }
+  .menu-card:hover { border-color: var(--accent); background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(61,90,153,0.12); }
+  .menu-card .card-icon { font-size: 28px; flex-shrink: 0; }
+  .menu-card .card-text h3 { font-size: 15px; font-weight: 500; margin-bottom: 4px; }
+  .menu-card .card-text p { font-size: 12px; color: var(--ink-muted); line-height: 1.5; }
 
-  /* ===== FORM SCREEN ===== */
   #formScreen { display: none; }
-  .form-wrap {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 32px 24px 80px;
-  }
+  .form-wrap { max-width: 720px; margin: 0 auto; padding: 32px 24px 80px; }
 
   .back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: var(--accent);
-    cursor: pointer;
-    margin-bottom: 28px;
-    background: none;
-    border: none;
-    padding: 0;
-    font-family: inherit;
+    display: inline-flex; align-items: center; gap: 6px; font-size: 13px;
+    color: var(--accent); cursor: pointer; margin-bottom: 28px;
+    background: none; border: none; padding: 0; font-family: inherit;
   }
   .back-btn:hover { text-decoration: underline; }
 
-  /* ===== PRINT DOCUMENT ===== */
   .doc {
-    background: var(--bg-white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 40px 44px;
-    position: relative;
+    background: var(--bg-white); border: 1px solid var(--border);
+    border-radius: 10px; padding: 40px 44px; position: relative;
+    margin-bottom: 20px;
   }
+  .doc + .doc { border-top: 3px solid var(--accent-light); }
 
-  .doc-date {
-    text-align: right;
-    font-size: 13px;
-    margin-bottom: 28px;
-    color: var(--ink-light);
-  }
+  .doc-date { text-align: right; font-size: 13px; margin-bottom: 28px; color: var(--ink-light); }
   .doc-date input[type="date"] {
-    border: none;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-    font-family: inherit;
-    color: var(--ink);
-    background: transparent;
-    padding: 2px 4px;
-    outline: none;
-    cursor: pointer;
+    border: none; border-bottom: 1px solid var(--border); font-size: 13px;
+    font-family: inherit; color: var(--ink); background: transparent; padding: 2px 4px; outline: none; cursor: pointer;
   }
   .doc-date input[type="date"]:focus { border-bottom-color: var(--accent); }
 
-  .doc-title {
-    text-align: center;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    margin-bottom: 32px;
-  }
+  .doc-title { text-align: center; font-size: 20px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 32px; }
 
-  .doc-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-  .doc-meta-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .doc-meta-row label {
-    font-size: 13px;
-    min-width: 48px;
-    color: var(--ink-light);
-  }
+  .doc-meta { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .doc-meta-row { display: flex; align-items: center; gap: 8px; }
+  .doc-meta-row label { font-size: 13px; min-width: 48px; color: var(--ink-light); }
   .doc-meta-row input {
-    flex: 1;
-    border: none;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px;
-    font-family: inherit;
-    color: var(--ink);
-    background: transparent;
-    padding: 4px 6px;
-    outline: none;
+    flex: 1; border: none; border-bottom: 1px solid var(--border);
+    font-size: 14px; font-family: inherit; color: var(--ink); background: transparent; padding: 4px 6px; outline: none;
   }
   .doc-meta-row input:focus { border-bottom-color: var(--accent); }
 
-  .doc-intro {
-    font-size: 13px;
-    margin-bottom: 20px;
-    color: var(--ink-light);
-  }
+  .doc-intro { font-size: 13px; margin-bottom: 20px; color: var(--ink-light); }
+  .doc-kei { font-size: 14px; font-weight: 500; margin-bottom: 16px; letter-spacing: 0.08em; }
 
-  .doc-kei {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 16px;
-    letter-spacing: 0.08em;
+  .doc-fields { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
+  .field-row { display: flex; align-items: flex-start; gap: 12px; }
+  .field-label { font-size: 13px; min-width: 80px; padding-top: 6px; color: var(--ink-light); flex-shrink: 0; }
+  .field-input { flex: 1; }
+  .field-input input, .field-input textarea, .field-input select {
+    width: 100%; border: none; border-bottom: 1px solid var(--border);
+    font-size: 14px; font-family: inherit; color: var(--ink); background: transparent; padding: 4px 6px; outline: none; resize: none;
   }
+  .field-input input:focus, .field-input textarea:focus { border-bottom-color: var(--accent); }
 
-  .doc-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-bottom: 28px;
-  }
-
-  .field-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .field-label {
-    font-size: 13px;
-    min-width: 80px;
-    padding-top: 6px;
-    color: var(--ink-light);
-    flex-shrink: 0;
-  }
-  .field-input {
-    flex: 1;
-  }
-  .field-input input,
-  .field-input textarea,
-  .field-input select {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid var(--border);
-    font-size: 14px;
-    font-family: inherit;
-    color: var(--ink);
-    background: transparent;
-    padding: 4px 6px;
-    outline: none;
-    resize: none;
-  }
-  .field-input input:focus,
-  .field-input textarea:focus,
-  .field-input select:focus { border-bottom-color: var(--accent); }
-
-  .date-range {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .date-range input[type="date"] {
-    width: auto;
-    flex: 1;
-    min-width: 130px;
-  }
-  /* Chromeの自動曜日(空カッコ)を非表示 */
-  input[type="date"]::-webkit-inner-spin-button { display: none; }
-  input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.5; }
-  }
+  .date-range { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .date-range input[type="date"] { width: auto; flex: 1; min-width: 130px; }
   .date-range span { font-size: 13px; color: var(--ink-muted); flex-shrink: 0; }
-  .date-range .days-count {
-    font-size: 12px;
-    color: var(--ink-muted);
-    white-space: nowrap;
-  }
+  .date-range .days-count { font-size: 12px; color: var(--ink-muted); white-space: nowrap; }
 
-  .doc-ijo {
-    text-align: right;
-    font-size: 13px;
-    color: var(--ink-light);
-    margin-bottom: 36px;
-  }
+  .duration-select { margin-top: 8px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .duration-select > span { font-size: 13px; color: var(--ink-light); }
+  .duration-select label { font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
 
-  /* ===== APPROVAL BOX ===== */
-  .approval-section {
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  .approval-box {
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    width: 140px;
-  }
-  .approval-box .approval-header {
-    background: var(--bg);
-    text-align: center;
-    font-size: 12px;
-    padding: 6px;
-    border-bottom: 1px solid var(--border);
-    color: var(--ink-light);
-    letter-spacing: 0.08em;
-  }
-  .approval-box .approval-body {
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  /* スタンプ風 */
+  .doc-ijo { text-align: right; font-size: 13px; color: var(--ink-light); margin-bottom: 36px; }
+
+  .approval-section { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: flex-end; }
+  .approval-box { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; width: 140px; }
+  .approval-box .approval-header { background: var(--bg); text-align: center; font-size: 12px; padding: 6px; border-bottom: 1px solid var(--border); color: var(--ink-light); letter-spacing: 0.08em; }
+  .approval-box .approval-body { height: 80px; display: flex; align-items: center; justify-content: center; position: relative; }
   .stamp {
-    width: 64px;
-    height: 64px;
-    border: 2px solid var(--stamp-red);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--stamp-red);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    opacity: 0;
-    transform: rotate(-12deg);
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    position: absolute;
+    width: 64px; height: 64px; border: 2px solid var(--stamp-red); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--stamp-red); font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+    opacity: 0; transform: rotate(-12deg); transition: opacity 0.3s ease;
+    pointer-events: none; position: absolute;
   }
   .stamp.visible { opacity: 1; }
-
   .approval-sign-btn {
-    background: none;
-    border: 1px dashed var(--border);
-    border-radius: 4px;
-    font-size: 11px;
-    color: var(--ink-muted);
-    cursor: pointer;
-    padding: 6px 10px;
-    font-family: inherit;
-    transition: all 0.15s;
+    background: none; border: 1px dashed var(--border); border-radius: 4px;
+    font-size: 11px; color: var(--ink-muted); cursor: pointer; padding: 6px 10px;
+    font-family: inherit; transition: all 0.15s;
   }
-  .approval-sign-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
+  .approval-sign-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ===== PDF BUTTON ===== */
-  .action-bar {
-    margin-top: 28px;
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
+  .page-divider {
+    text-align: center; margin: 8px 0; font-size: 12px; color: var(--ink-muted);
+    display: flex; align-items: center; gap: 8px;
   }
+  .page-divider::before, .page-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .action-bar { margin-top: 16px; display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; }
   .btn-primary {
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 7px;
-    padding: 12px 28px;
-    font-size: 14px;
-    font-family: inherit;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background 0.15s;
+    background: var(--accent); color: white; border: none; border-radius: 7px;
+    padding: 12px 28px; font-size: 14px; font-family: inherit; font-weight: 500;
+    cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.15s;
   }
   .btn-primary:hover { background: #2e4580; }
   .btn-secondary {
-    background: var(--bg-white);
-    color: var(--ink-light);
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    padding: 12px 24px;
-    font-size: 14px;
-    font-family: inherit;
-    cursor: pointer;
-    transition: border-color 0.15s;
+    background: var(--bg-white); color: var(--ink-light); border: 1px solid var(--border);
+    border-radius: 7px; padding: 12px 24px; font-size: 14px; font-family: inherit;
+    cursor: pointer; transition: border-color 0.15s;
   }
   .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-add {
+    background: var(--accent-light); color: var(--accent); border: 1px dashed var(--accent);
+    border-radius: 7px; padding: 12px 24px; font-size: 14px; font-family: inherit;
+    cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.15s;
+  }
+  .btn-add:hover { background: var(--accent); color: white; }
 
-  /* ===== PRINT STYLES ===== */
   .print-date { display: none; }
+
   @media print {
     body { background: white; }
-    .top-bar, .back-btn, .action-bar, .approval-sign-btn { display: none !important; }
+    .top-bar, .back-btn, .action-bar, .approval-sign-btn, .page-divider, .duration-select { display: none !important; }
     #menuScreen { display: none !important; }
     #formScreen { display: block !important; }
     .form-wrap { padding: 0; margin: 0; max-width: 100%; }
-    .doc {
-      border: none;
-      border-radius: 0;
-      padding: 20px 30px;
-      page-break-inside: avoid;
-    }
-    .doc-meta-row input,
-    .field-input input,
-    .field-input textarea { border-bottom: 1px solid #ccc; }
+    .doc { border: none; border-radius: 0; padding: 20px 30px; page-break-after: always; margin-bottom: 0; }
+    .doc:last-of-type { page-break-after: avoid; }
+    .doc-meta-row input, .field-input input, .field-input textarea { border-bottom: 1px solid #ccc; }
     input[type="date"] { display: none !important; }
     .print-date { display: inline !important; font-size: 14px; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
     .doc-date .print-date { font-size: 13px; border-bottom: none; }
     #docDateYobi { display: none !important; }
-    .duration-select label { display: none !important; }
-    .duration-select > label:first-of-type { display: none !important; }
-    .duration-select input[type="radio"] { display: none !important; }
-    #period_duration_label { display: inline !important; font-size: 13px; }
-    .days-count[id$="_from_yobi"], .days-count[id$="_to_yobi"] { display: none !important; }
     .stamp { opacity: 1 !important; }
   }
 
@@ -407,11 +183,10 @@
 <body>
 
 <div class="top-bar">
-  <span class="icon">📋</span>
+  <span class="icon">&#x1F4CB;</span>
   <h1>休暇申請システム</h1>
 </div>
 
-<!-- ===== MENU ===== -->
 <div id="menuScreen">
   <div style="max-width:700px; margin:48px auto; padding:0 24px;">
     <div class="menu-title">申請の種類を選択してください</div>
@@ -419,29 +194,28 @@
   </div>
 </div>
 
-<!-- ===== FORM ===== -->
 <div id="formScreen">
   <div class="form-wrap">
-    <button class="back-btn" onclick="goBack()">← 申請一覧に戻る</button>
-    <div class="doc" id="docArea"></div>
+    <button class="back-btn" onclick="goBack()">&#x2190; 申請一覧に戻る</button>
+    <div id="docContainer"></div>
     <div class="action-bar">
-      <button class="btn-secondary" onclick="clearForm()">クリア</button>
-      <button class="btn-primary" onclick="printDoc()">🖨️ PDF出力 / 印刷</button>
+      <button class="btn-secondary" onclick="clearAll()">クリア</button>
+      <button class="btn-add" onclick="addPage()" id="addPageBtn">&#x2795; ページを追加</button>
+      <button class="btn-primary" onclick="printDoc()">&#x1F5A8; PDF出力 / 印刷</button>
     </div>
   </div>
 </div>
 
 <script>
-// ===== 申請定義 =====
-// ここに申請を追加するだけで増やせます
 const APPLICATIONS = [
   {
     id: 'yuukyu',
-    icon: '🌿',
+    icon: '&#x1F33F;',
     name: '有給申請',
     desc: '有給休暇の取得申請',
     docTitle: '有給休暇申請書',
     intro: '下記の通り、有給休暇を申請いたします。',
+    showDuration: true,
     fields: [
       { type: 'daterange', label: '1. 期間', id: 'period' },
       { type: 'text', label: '2. 事由', id: 'reason', placeholder: '例：私用のため' },
@@ -450,11 +224,12 @@ const APPLICATIONS = [
   },
   {
     id: 'kekkin',
-    icon: '🏥',
+    icon: '&#x1F3E5;',
     name: '欠勤申請',
     desc: '体調不良・やむを得ない欠勤の申請',
     docTitle: '欠勤申請書',
     intro: '下記の通り、欠勤を申請いたします。',
+    showDuration: true,
     fields: [
       { type: 'daterange', label: '1. 期間', id: 'period', withTime: true },
       { type: 'text', label: '2. 事由', id: 'reason', placeholder: '例：体調不良のため' },
@@ -463,11 +238,12 @@ const APPLICATIONS = [
   },
   {
     id: 'daikyu',
-    icon: '🔄',
+    icon: '&#x1F504;',
     name: '代休申請',
     desc: '残業・休日出勤の代替休暇申請',
     docTitle: '代理休暇申請書',
     intro: '下記の通り、代理休暇を申請いたします。',
+    showDuration: true,
     fields: [
       { type: 'daterange', label: '1. 期間', id: 'period', withTime: true },
       { type: 'text', label: '2. 事由', id: 'reason', placeholder: '例：当月残業調整用' },
@@ -476,11 +252,12 @@ const APPLICATIONS = [
   },
   {
     id: 'furikae',
-    icon: '📅',
+    icon: '&#x1F4C5;',
     name: '振替休日申請',
     desc: '休日出勤の振替日取得申請',
     docTitle: '振替休日申請書',
     intro: '下記の通り、休日振替のため申請いたします。',
+    showDuration: false,
     fields: [
       { type: 'date', label: '1. 出勤日', id: 'workday' },
       { type: 'date', label: '2. 希望休日', id: 'holiday' },
@@ -489,11 +266,12 @@ const APPLICATIONS = [
   },
   {
     id: 'kibiki',
-    icon: '🕊️',
+    icon: '&#x1F54A;&#xFE0F;',
     name: '忌引休暇申請',
     desc: '家族・親族の訃報に伴う休暇申請',
     docTitle: '忌引休暇申請書',
     intro: '下記の通り、忌引休暇を申請いたします。',
+    showDuration: false,
     fields: [
       { type: 'daterange', label: '1. 期間', id: 'period' },
       { type: 'text', label: '2. 続柄', id: 'relation', placeholder: '例：父（実父）' },
@@ -502,72 +280,120 @@ const APPLICATIONS = [
   },
 ];
 
-// ===== メニュー生成 =====
+let currentApp = null;
+let pageCount = 0;
+
 function buildMenu() {
   const grid = document.getElementById('menuGrid');
   APPLICATIONS.forEach(app => {
     const card = document.createElement('div');
     card.className = 'menu-card';
-    card.innerHTML = `
-      <div class="card-icon">${app.icon}</div>
-      <div class="card-text">
-        <h3>${app.name}</h3>
-        <p>${app.desc}</p>
-      </div>`;
+    card.innerHTML = `<div class="card-icon">${app.icon}</div><div class="card-text"><h3>${app.name}</h3><p>${app.desc}</p></div>`;
     card.onclick = () => showForm(app.id);
     grid.appendChild(card);
   });
 }
 
-// ===== フォーム表示 =====
-function showForm(id) {
-  const app = APPLICATIONS.find(a => a.id === id);
-  if (!app) return;
-  document.getElementById('menuScreen').style.display = 'none';
-  document.getElementById('formScreen').style.display = 'block';
+const YOUBI = ['日','月','火','水','木','金','土'];
+function getYoubi(s) { if(!s) return ''; const d=new Date(s); return YOUBI[d.getDay()]; }
+function formatDateWithYoubi(s) {
+  if(!s) return '';
+  const d=new Date(s);
+  return `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}（${YOUBI[d.getDay()]}）`;
+}
+function updateYoubi(inputId, labelId) {
+  const val = document.getElementById(inputId)?.value;
+  const el = document.getElementById(labelId);
+  if(el) el.textContent = val ? `（${getYoubi(val)}）` : '';
+}
+function updatePrintDate(inputId, printId) {
+  const val = document.getElementById(inputId)?.value;
+  const el = document.getElementById(printId);
+  if(el) el.textContent = val ? formatDateWithYoubi(val) : '';
+}
 
+function calcDays(id) {
+  updateYoubi(id+'_from', id+'_from_yobi');
+  updateYoubi(id+'_to', id+'_to_yobi');
+  updatePrintDate(id+'_from', id+'_from_print');
+  updatePrintDate(id+'_to', id+'_to_print');
+  const from = document.getElementById(id+'_from')?.value;
+  const to   = document.getElementById(id+'_to')?.value;
+  const el   = document.getElementById(id+'_days');
+  if(!el) return;
+  if(from && to) {
+    const diff = Math.round((new Date(to)-new Date(from))/(86400000))+1;
+    el.textContent = diff>0 ? `（${diff}日間）` : '';
+  } else { el.textContent = ''; }
+}
+
+function updateDuration(id) {
+  const sel = document.querySelector(`input[name="${id}_duration"]:checked`);
+  const label = document.getElementById(id+'_duration_label');
+  if(label) label.textContent = sel && sel.value!=='一日' ? sel.value : '';
+}
+
+function updateDocDate(idx) {
+  const inputId = 'docDate_'+idx;
+  const val = document.getElementById(inputId)?.value;
+  const yi = document.getElementById('docDateYobi_'+idx);
+  const pi = document.getElementById('docDatePrint_'+idx);
+  if(yi) yi.textContent = val ? `（${getYoubi(val)}）` : '';
+  if(pi) pi.textContent = val ? formatDateWithYoubi(val) : '';
+}
+
+function toggleStamp(idx) {
+  const stamp = document.getElementById('stampMark_'+idx);
+  const btn   = document.getElementById('signBtn_'+idx);
+  if(!stamp) return;
+  if(stamp.classList.contains('visible')) {
+    stamp.classList.remove('visible');
+    if(btn) btn.style.display='';
+  } else {
+    stamp.classList.add('visible');
+    if(btn) btn.style.display='none';
+  }
+}
+
+function buildDocHTML(app, idx) {
   const today = new Date().toISOString().split('T')[0];
   let fieldsHTML = '';
 
   app.fields.forEach(f => {
+    const fid = f.id+'_'+idx;
     let input = '';
-    if (f.type === 'daterange') {
+    if(f.type==='daterange') {
       const timeInputs = f.withTime ? `
         <span>（</span>
-        <input type="time" id="${f.id}_start_time" value="09:00">
+        <input type="time" id="${fid}_start_time" value="09:00">
         <span>〜</span>
-        <input type="time" id="${f.id}_end_time" value="18:00">
+        <input type="time" id="${fid}_end_time" value="18:00">
         <span>）</span>` : '';
+      const durationHTML = app.showDuration ? `
+      <div class="duration-select">
+        <span>取得区分：</span>
+        <label><input type="radio" name="${fid}_duration" value="一日" onchange="updateDuration('${fid}')" checked> 一日</label>
+        <label><input type="radio" name="${fid}_duration" value="半日（午前）" onchange="updateDuration('${fid}')"> 半日（午前）</label>
+        <label><input type="radio" name="${fid}_duration" value="半日（午後）" onchange="updateDuration('${fid}')"> 半日（午後）</label>
+        <span id="${fid}_duration_label" style="color:var(--accent);font-weight:500;"></span>
+      </div>` : '';
       input = `<div class="date-range">
-        <input type="date" id="${f.id}_from" onchange="calcDays('${f.id}')">
-        <span class="print-date" id="${f.id}_from_print"></span>
-        <span class="days-count" id="${f.id}_from_yobi"></span>
+        <input type="date" id="${fid}_from" onchange="calcDays('${fid}')">
+        <span class="print-date" id="${fid}_from_print"></span>
+        <span class="days-count" id="${fid}_from_yobi"></span>
         <span>〜</span>
-        <input type="date" id="${f.id}_to" onchange="calcDays('${f.id}')">
-        <span class="print-date" id="${f.id}_to_print"></span>
-        <span class="days-count" id="${f.id}_to_yobi"></span>
+        <input type="date" id="${fid}_to" onchange="calcDays('${fid}')">
+        <span class="print-date" id="${fid}_to_print"></span>
+        <span class="days-count" id="${fid}_to_yobi"></span>
         ${timeInputs}
-        <span class="days-count" id="${f.id}_days"></span>
-      </div>
-      <div class="duration-select" style="margin-top:8px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-        <label style="font-size:13px; color:var(--ink-light);">取得区分：</label>
-        <label style="font-size:13px; cursor:pointer;">
-          <input type="radio" name="${f.id}_duration" value="一日" onchange="updateDuration('${f.id}')" checked> 一日
-        </label>
-        <label style="font-size:13px; cursor:pointer;">
-          <input type="radio" name="${f.id}_duration" value="半日（午前）" onchange="updateDuration('${f.id}')"> 半日（午前）
-        </label>
-        <label style="font-size:13px; cursor:pointer;">
-          <input type="radio" name="${f.id}_duration" value="半日（午後）" onchange="updateDuration('${f.id}')"> 半日（午後）
-        </label>
-        <span class="days-count" id="${f.id}_duration_label" style="color:var(--accent); font-weight:500;"></span>
-      </div>`;
-    } else if (f.type === 'date') {
-      input = `<input type="date" id="${f.id}">`;
-    } else if (f.type === 'textarea') {
-      input = `<textarea id="${f.id}" rows="${f.rows || 2}" placeholder="${f.placeholder || ''}"></textarea>`;
+        <span class="days-count" id="${fid}_days"></span>
+      </div>${durationHTML}`;
+    } else if(f.type==='date') {
+      input = `<input type="date" id="${fid}"><span class="print-date" id="${fid}_print"></span>`;
+    } else if(f.type==='textarea') {
+      input = `<textarea id="${fid}" rows="${f.rows||2}" placeholder="${f.placeholder||''}"></textarea>`;
     } else {
-      input = `<input type="text" id="${f.id}" placeholder="${f.placeholder || ''}">`;
+      input = `<input type="text" id="${fid}" placeholder="${f.placeholder||''}">`;
     }
     fieldsHTML += `<div class="field-row">
       <div class="field-label">${f.label}</div>
@@ -575,22 +401,16 @@ function showForm(id) {
     </div>`;
   });
 
-  document.getElementById('docArea').innerHTML = `
+  return `
     <div class="doc-date">
-      <input type="date" id="docDate" value="${today}" onchange="updateDocDate()">
-      <span class="print-date" id="docDatePrint">${today ? formatDateWithYoubi(today) : ''}</span>
-      <span id="docDateYobi">${today ? `（${getYoubi(today)}）` : ''}</span>
+      <input type="date" id="docDate_${idx}" value="${today}" onchange="updateDocDate(${idx})">
+      <span class="print-date" id="docDatePrint_${idx}">${formatDateWithYoubi(today)}</span>
+      <span id="docDateYobi_${idx}">（${getYoubi(today)}）</span>
     </div>
     <div class="doc-title">${app.docTitle}</div>
     <div class="doc-meta">
-      <div class="doc-meta-row">
-        <label>所属：</label>
-        <input type="text" id="dept" placeholder="所属部署">
-      </div>
-      <div class="doc-meta-row">
-        <label>氏名：</label>
-        <input type="text" id="name" placeholder="氏名">
-      </div>
+      <div class="doc-meta-row"><label>所属：</label><input type="text" id="dept_${idx}" placeholder="所属部署"></div>
+      <div class="doc-meta-row"><label>氏名：</label><input type="text" id="name_${idx}" placeholder="氏名"></div>
     </div>
     <div class="doc-intro">${app.intro}</div>
     <div class="doc-kei">記</div>
@@ -600,118 +420,53 @@ function showForm(id) {
       <div class="approval-box">
         <div class="approval-header">上長承認</div>
         <div class="approval-body">
-          <div class="stamp" id="stampMark">承認</div>
-          <button class="approval-sign-btn" id="signBtn" onclick="toggleStamp()">承認する</button>
+          <div class="stamp" id="stampMark_${idx}">承認</div>
+          <button class="approval-sign-btn" id="signBtn_${idx}" onclick="toggleStamp(${idx})">承認する</button>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
-// ===== 曜日変換 =====
-const YOUBI = ['日', '月', '火', '水', '木', '金', '土'];
-function getYoubi(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  return YOUBI[d.getDay()];
+function showForm(id) {
+  currentApp = APPLICATIONS.find(a => a.id===id);
+  if(!currentApp) return;
+  pageCount = 0;
+  document.getElementById('menuScreen').style.display = 'none';
+  document.getElementById('formScreen').style.display = 'block';
+  document.getElementById('docContainer').innerHTML = '';
+  addPage();
 }
 
-function formatDateWithYoubi(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}/${m}/${day}（${YOUBI[d.getDay()]}）`;
-}
-
-function updateYoubi(inputId, labelId) {
-  const val = document.getElementById(inputId)?.value;
-  const el = document.getElementById(labelId);
-  if (el) el.textContent = val ? `（${getYoubi(val)}）` : '';
-}
-
-function updatePrintDate(inputId, printId) {
-  const val = document.getElementById(inputId)?.value;
-  const el = document.getElementById(printId);
-  if (el) el.textContent = val ? formatDateWithYoubi(val) : '';
-}
-
-function updateDocDate() {
-  updateYoubi('docDate', 'docDateYobi');
-  updatePrintDate('docDate', 'docDatePrint');
-}
-
-// ===== 日数計算 =====
-function calcDays(id) {
-  updateYoubi(id + '_from', id + '_from_yobi');
-  updateYoubi(id + '_to', id + '_to_yobi');
-  updatePrintDate(id + '_from', id + '_from_print');
-  updatePrintDate(id + '_to', id + '_to_print');
-  const from = document.getElementById(id + '_from')?.value;
-  const to = document.getElementById(id + '_to')?.value;
-  const el = document.getElementById(id + '_days');
-  if (!el) return;
-  if (from && to) {
-    const d1 = new Date(from), d2 = new Date(to);
-    const diff = Math.round((d2 - d1) / (1000 * 60 * 60 * 24)) + 1;
-    if (diff > 0) el.textContent = `（${diff}日間）`;
-    else el.textContent = '';
-  } else {
-    el.textContent = '';
+function addPage() {
+  if(!currentApp) return;
+  const container = document.getElementById('docContainer');
+  if(pageCount > 0) {
+    const divider = document.createElement('div');
+    divider.className = 'page-divider';
+    divider.innerHTML = `<span>ページ ${pageCount+1}</span>`;
+    container.appendChild(divider);
   }
+  const doc = document.createElement('div');
+  doc.className = 'doc';
+  doc.id = 'doc_'+pageCount;
+  doc.innerHTML = buildDocHTML(currentApp, pageCount);
+  container.appendChild(doc);
+  pageCount++;
 }
 
-// ===== 取得区分更新 =====
-function updateDuration(id) {
-  const selected = document.querySelector(`input[name="${id}_duration"]:checked`);
-  const label = document.getElementById(id + '_duration_label');
-  if (!selected || !label) return;
-  const val = selected.value;
-  if (val === '一日') {
-    label.textContent = '';
-  } else {
-    label.textContent = val;
-  }
-}
-
-// ===== スタンプ =====
-function toggleStamp() {
-  const stamp = document.getElementById('stampMark');
-  const btn = document.getElementById('signBtn');
-  if (!stamp) return;
-  const isVisible = stamp.classList.contains('visible');
-  if (isVisible) {
-    stamp.classList.remove('visible');
-    btn.style.display = '';
-  } else {
-    stamp.classList.add('visible');
-    btn.style.display = 'none';
-  }
-}
-
-// ===== ナビ =====
 function goBack() {
   document.getElementById('formScreen').style.display = 'none';
   document.getElementById('menuScreen').style.display = 'block';
+  currentApp = null;
+  pageCount = 0;
 }
 
-function clearForm() {
-  document.querySelectorAll('#docArea input, #docArea textarea').forEach(el => {
-    if (el.type === 'date' || el.type === 'time') return;
-    el.value = '';
-  });
-  const stamp = document.getElementById('stampMark');
-  const btn = document.getElementById('signBtn');
-  if (stamp) stamp.classList.remove('visible');
-  if (btn) btn.style.display = '';
+function clearAll() {
+  document.querySelectorAll('#docContainer input[type="text"], #docContainer textarea').forEach(el => el.value='');
 }
 
-function printDoc() {
-  window.print();
-}
+function printDoc() { window.print(); }
 
-// ===== 初期化 =====
 buildMenu();
 </script>
 </body>
