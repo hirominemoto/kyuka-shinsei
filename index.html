@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>休暇申請システム</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --ink: #1a1a2e;
+    --ink-light: #4a4a6a;
+    --ink-muted: #8888aa;
+    --bg: #f7f7fb;
+    --bg-white: #ffffff;
+    --accent: #3d5a99;
+    --accent-light: #e8edf8;
+    --border: #dddde8;
+    --danger: #c0392b;
+    --success: #27ae60;
+    --stamp-red: #c0392b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ===== TOP MENU ===== */
+  .top-bar {
+    background: var(--accent);
+    color: white;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .top-bar h1 {
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .top-bar .icon { font-size: 22px; }
+
+  /* ===== MENU SCREEN ===== */
+  #menuScreen {
+    max-width: 700px;
+    margin: 48px auto;
+    padding: 0 24px;
+  }
+  .menu-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  .menu-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px 20px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .menu-card:hover {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(61,90,153,0.12);
+  }
+  .menu-card .card-icon {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+  .menu-card .card-text h3 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .menu-card .card-text p {
+    font-size: 12px;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  /* ===== FORM SCREEN ===== */
+  #formScreen { display: none; }
+  .form-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--accent);
+    cursor: pointer;
+    margin-bottom: 28px;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+  }
+  .back-btn:hover { text-decoration: underline; }
+
+  /* ===== PRINT DOCUMENT ===== */
+  .doc {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 40px 44px;
+    position: relative;
+  }
+
+  .doc-date {
+    text-align: right;
+    font-size: 13px;
+    margin-bottom: 28px;
+    color: var(--ink-light);
+  }
+  .doc-date input[type="date"] {
+    border: none;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--ink);
+    background: transparent;
+    padding: 2px 4px;
+    outline: none;
+    cursor: pointer;
+  }
+  .doc-date input[type="date"]:focus { border-bottom-color: var(--accent); }
+
+  .doc-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin-bottom: 32px;
+  }
+
+  .doc-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .doc-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .doc-meta-row label {
+    font-size: 13px;
+    min-width: 48px;
+    color: var(--ink-light);
+  }
+  .doc-meta-row input {
+    flex: 1;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--ink);
+    background: transparent;
+    padding: 4px 6px;
+    outline: none;
+  }
+  .doc-meta-row input:focus { border-bottom-color: var(--accent); }
+
+  .doc-intro {
+    font-size: 13px;
+    margin-bottom: 20px;
+    color: var(--ink-light);
+  }
+
+  .doc-kei {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    letter-spacing: 0.08em;
+  }
+
+  .doc-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .field-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .field-label {
+    font-size: 13px;
+    min-width: 80px;
+    padding-top: 6px;
+    color: var(--ink-light);
+    flex-shrink: 0;
+  }
+  .field-input {
+    flex: 1;
+  }
+  .field-input input,
+  .field-input textarea,
+  .field-input select {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--ink);
+    background: transparent;
+    padding: 4px 6px;
+    outline: none;
+    resize: none;
+  }
+  .field-input input:focus,
+  .field-input textarea:focus,
+  .field-input select:focus { border-bottom-color: var(--accent); }
+
+  .date-range {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .date-range input[type="date"] {
+    width: auto;
+    flex: 1;
+    min-width: 130px;
+  }
+  .date-range span { font-size: 13px; color: var(--ink-muted); flex-shrink: 0; }
+  .date-range .days-count {
+    font-size: 12px;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  .doc-ijo {
+    text-align: right;
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 36px;
+  }
+
+  /* ===== APPROVAL BOX ===== */
+  .approval-section {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .approval-box {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    width: 140px;
+  }
+  .approval-box .approval-header {
+    background: var(--bg);
+    text-align: center;
+    font-size: 12px;
+    padding: 6px;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+  }
+  .approval-box .approval-body {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  /* スタンプ風 */
+  .stamp {
+    width: 64px;
+    height: 64px;
+    border: 2px solid var(--stamp-red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--stamp-red);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transform: rotate(-12deg);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    position: absolute;
+  }
+  .stamp.visible { opacity: 1; }
+
+  .approval-sign-btn {
+    background: none;
+    border: 1px dashed var(--border);
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--ink-muted);
+    cursor: pointer;
+    padding: 6px 10px;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+  .approval-sign-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ===== PDF BUTTON ===== */
+  .action-bar {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: #2e4580; }
+  .btn-secondary {
+    background: var(--bg-white);
+    color: var(--ink-light);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    body { background: white; }
+    .top-bar, .back-btn, .action-bar, .approval-sign-btn { display: none !important; }
+    #menuScreen { display: none !important; }
+    #formScreen { display: block !important; }
+    .form-wrap { padding: 0; margin: 0; max-width: 100%; }
+    .doc {
+      border: none;
+      border-radius: 0;
+      padding: 20px 30px;
+      page-break-inside: avoid;
+    }
+    .doc-meta-row input,
+    .field-input input,
+    .field-input textarea,
+    .doc-date input { border-bottom: 1px solid #ccc; }
+    .stamp { opacity: 1 !important; }
+  }
+
+  @media (max-width: 560px) {
+    .menu-grid { grid-template-columns: 1fr; }
+    .doc { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <span class="icon">📋</span>
+  <h1>休暇申請システム</h1>
+</div>
+
+<!-- ===== MENU ===== -->
+<div id="menuScreen">
+  <div style="max-width:700px; margin:48px auto; padding:0 24px;">
+    <div class="menu-title">申請の種類を選択してください</div>
+    <div class="menu-grid" id="menuGrid"></div>
+  </div>
+</div>
+
+<!-- ===== FORM ===== -->
+<div id="formScreen">
+  <div class="form-wrap">
+    <button class="back-btn" onclick="goBack()">← 申請一覧に戻る</button>
+    <div class="doc" id="docArea"></div>
+    <div class="action-bar">
+      <button class="btn-secondary" onclick="clearForm()">クリア</button>
+      <button class="btn-primary" onclick="printDoc()">🖨️ PDF出力 / 印刷</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== 申請定義 =====
+// ここに申請を追加するだけで増やせます
+const APPLICATIONS = [
+  {
+    id: 'yuukyu',
+    icon: '🌿',
+    name: '有給申請',
+    desc: '有給休暇の取得申請',
+    docTitle: '有給休暇申請書',
+    intro: '下記の通り、有給休暇を申請いたします。',
+    fields: [
+      { type: 'daterange', label: '1. 期間', id: 'period' },
+      { type: 'text', label: '2. 事由', id: 'reason', placeholder: '例：私用のため' },
+      { type: 'textarea', label: '3. 備考', id: 'note', placeholder: '（任意）', rows: 2 },
+    ]
+  },
+  {
+    id: 'kekkin',
+    icon: '🏥',
+    name: '欠勤申請',
+    desc: '体調不良・やむを得ない欠勤の申請',
+    docTitle: '欠勤申請書',
+    intro: '下記の通り、欠勤を申請いたします。',
+    fields: [
+      { type: 'daterange', label: '1. 期間', id: 'period', withTime: true },
+      { type: 'text', label: '2. 事由', id: 'reason', placeholder: '例：体調不良のため' },
+      { type: 'textarea', label: '3. 備考', id: 'note', placeholder: '（任意）', rows: 2 },
+    ]
+  },
+  {
+    id: 'daikyu',
+    icon: '🔄',
+    name: '代休申請',
+    desc: '残業・休日出勤の代替休暇申請',
+    docTitle: '代理休暇申請書',
+    intro: '下記の通り、代理休暇を申請いたします。',
+    fields: [
+      { type: 'daterange', label: '1. 期間', id: 'period', withTime: true },
+      { type: 'text', label: '2. 事由', id: 'reason', placeholder: '例：当月残業調整用' },
+      { type: 'textarea', label: '3. 備考', id: 'note', placeholder: '（任意）', rows: 2 },
+    ]
+  },
+  {
+    id: 'furikae',
+    icon: '📅',
+    name: '振替休日申請',
+    desc: '休日出勤の振替日取得申請',
+    docTitle: '振替休日申請書',
+    intro: '下記の通り、休日振替のため申請いたします。',
+    fields: [
+      { type: 'date', label: '1. 出勤日', id: 'workday' },
+      { type: 'date', label: '2. 希望休日', id: 'holiday' },
+      { type: 'text', label: '3. 事由', id: 'reason', placeholder: '' },
+    ]
+  },
+  {
+    id: 'kibiki',
+    icon: '🕊️',
+    name: '忌引休暇申請',
+    desc: '家族・親族の訃報に伴う休暇申請',
+    docTitle: '忌引休暇申請書',
+    intro: '下記の通り、忌引休暇を申請いたします。',
+    fields: [
+      { type: 'daterange', label: '1. 期間', id: 'period' },
+      { type: 'text', label: '2. 続柄', id: 'relation', placeholder: '例：父（実父）' },
+      { type: 'textarea', label: '3. 備考', id: 'note', placeholder: '両親・実兄弟は2日、それ以外の親族は1日', rows: 2 },
+    ]
+  },
+];
+
+// ===== メニュー生成 =====
+function buildMenu() {
+  const grid = document.getElementById('menuGrid');
+  APPLICATIONS.forEach(app => {
+    const card = document.createElement('div');
+    card.className = 'menu-card';
+    card.innerHTML = `
+      <div class="card-icon">${app.icon}</div>
+      <div class="card-text">
+        <h3>${app.name}</h3>
+        <p>${app.desc}</p>
+      </div>`;
+    card.onclick = () => showForm(app.id);
+    grid.appendChild(card);
+  });
+}
+
+// ===== フォーム表示 =====
+function showForm(id) {
+  const app = APPLICATIONS.find(a => a.id === id);
+  if (!app) return;
+  document.getElementById('menuScreen').style.display = 'none';
+  document.getElementById('formScreen').style.display = 'block';
+
+  const today = new Date().toISOString().split('T')[0];
+  let fieldsHTML = '';
+
+  app.fields.forEach(f => {
+    let input = '';
+    if (f.type === 'daterange') {
+      const timeInputs = f.withTime ? `
+        <span>（</span>
+        <input type="time" id="${f.id}_start_time" value="09:00">
+        <span>〜</span>
+        <input type="time" id="${f.id}_end_time" value="18:00">
+        <span>）</span>` : '';
+      input = `<div class="date-range">
+        <input type="date" id="${f.id}_from" onchange="calcDays('${f.id}')">
+        <span>〜</span>
+        <input type="date" id="${f.id}_to" onchange="calcDays('${f.id}')">
+        ${timeInputs}
+        <span class="days-count" id="${f.id}_days"></span>
+      </div>`;
+    } else if (f.type === 'date') {
+      input = `<input type="date" id="${f.id}">`;
+    } else if (f.type === 'textarea') {
+      input = `<textarea id="${f.id}" rows="${f.rows || 2}" placeholder="${f.placeholder || ''}"></textarea>`;
+    } else {
+      input = `<input type="text" id="${f.id}" placeholder="${f.placeholder || ''}">`;
+    }
+    fieldsHTML += `<div class="field-row">
+      <div class="field-label">${f.label}</div>
+      <div class="field-input">${input}</div>
+    </div>`;
+  });
+
+  document.getElementById('docArea').innerHTML = `
+    <div class="doc-date">
+      <input type="date" id="docDate" value="${today}">
+    </div>
+    <div class="doc-title">${app.docTitle}</div>
+    <div class="doc-meta">
+      <div class="doc-meta-row">
+        <label>所属：</label>
+        <input type="text" id="dept" placeholder="所属部署">
+      </div>
+      <div class="doc-meta-row">
+        <label>氏名：</label>
+        <input type="text" id="name" placeholder="氏名">
+      </div>
+    </div>
+    <div class="doc-intro">${app.intro}</div>
+    <div class="doc-kei">記</div>
+    <div class="doc-fields">${fieldsHTML}</div>
+    <div class="doc-ijo">以上</div>
+    <div class="approval-section">
+      <div class="approval-box">
+        <div class="approval-header">上長承認</div>
+        <div class="approval-body">
+          <div class="stamp" id="stampMark">承認</div>
+          <button class="approval-sign-btn" id="signBtn" onclick="toggleStamp()">承認する</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ===== 日数計算 =====
+function calcDays(id) {
+  const from = document.getElementById(id + '_from')?.value;
+  const to = document.getElementById(id + '_to')?.value;
+  const el = document.getElementById(id + '_days');
+  if (!el) return;
+  if (from && to) {
+    const d1 = new Date(from), d2 = new Date(to);
+    const diff = Math.round((d2 - d1) / (1000 * 60 * 60 * 24)) + 1;
+    if (diff > 0) el.textContent = `（${diff}日間）`;
+    else el.textContent = '';
+  } else {
+    el.textContent = '';
+  }
+}
+
+// ===== スタンプ =====
+function toggleStamp() {
+  const stamp = document.getElementById('stampMark');
+  const btn = document.getElementById('signBtn');
+  if (!stamp) return;
+  const isVisible = stamp.classList.contains('visible');
+  if (isVisible) {
+    stamp.classList.remove('visible');
+    btn.style.display = '';
+  } else {
+    stamp.classList.add('visible');
+    btn.style.display = 'none';
+  }
+}
+
+// ===== ナビ =====
+function goBack() {
+  document.getElementById('formScreen').style.display = 'none';
+  document.getElementById('menuScreen').style.display = 'block';
+}
+
+function clearForm() {
+  document.querySelectorAll('#docArea input, #docArea textarea').forEach(el => {
+    if (el.type === 'date' || el.type === 'time') return;
+    el.value = '';
+  });
+  const stamp = document.getElementById('stampMark');
+  const btn = document.getElementById('signBtn');
+  if (stamp) stamp.classList.remove('visible');
+  if (btn) btn.style.display = '';
+}
+
+function printDoc() {
+  window.print();
+}
+
+// ===== 初期化 =====
+buildMenu();
+</script>
+</body>
+</html>
