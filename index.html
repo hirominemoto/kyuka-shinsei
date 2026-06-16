@@ -550,7 +550,7 @@ function showForm(id) {
   document.getElementById('docArea').innerHTML = `
     <div class="doc-date">
       <input type="date" id="docDate" value="${today}" onchange="updateYoubi('docDate','docDateYobi')">
-      <span id="docDateYobi">（${getYoubi(today)}）</span>
+      <span id="docDateYobi">${today ? `（${getYoubi(today)}）` : ''}</span>
     </div>
     <div class="doc-title">${app.docTitle}</div>
     <div class="doc-meta">
