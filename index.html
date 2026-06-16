@@ -249,6 +249,10 @@
     flex: 1;
     min-width: 130px;
   }
+  /* Chromeの自動曜日(空カッコ)を非表示 */
+  input[type="date"]::-webkit-inner-spin-button { display: none; }
+  input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.5; }
+  }
   .date-range span { font-size: 13px; color: var(--ink-muted); flex-shrink: 0; }
   .date-range .days-count {
     font-size: 12px;
@@ -366,6 +370,7 @@
   .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
 
   /* ===== PRINT STYLES ===== */
+  .print-date { display: none; }
   @media print {
     body { background: white; }
     .top-bar, .back-btn, .action-bar, .approval-sign-btn { display: none !important; }
@@ -380,8 +385,10 @@
     }
     .doc-meta-row input,
     .field-input input,
-    .field-input textarea,
-    .doc-date input { border-bottom: 1px solid #ccc; }
+    .field-input textarea { border-bottom: 1px solid #ccc; }
+    input[type="date"] { display: none !important; }
+    .print-date { display: inline !important; font-size: 14px; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
+    .doc-date .print-date { font-size: 13px; border-bottom: none; }
     .stamp { opacity: 1 !important; }
   }
 
@@ -527,9 +534,11 @@ function showForm(id) {
         <span>）</span>` : '';
       input = `<div class="date-range">
         <input type="date" id="${f.id}_from" onchange="calcDays('${f.id}')">
+        <span class="print-date" id="${f.id}_from_print"></span>
         <span class="days-count" id="${f.id}_from_yobi"></span>
         <span>〜</span>
         <input type="date" id="${f.id}_to" onchange="calcDays('${f.id}')">
+        <span class="print-date" id="${f.id}_to_print"></span>
         <span class="days-count" id="${f.id}_to_yobi"></span>
         ${timeInputs}
         <span class="days-count" id="${f.id}_days"></span>
@@ -549,7 +558,8 @@ function showForm(id) {
 
   document.getElementById('docArea').innerHTML = `
     <div class="doc-date">
-      <input type="date" id="docDate" value="${today}" onchange="updateYoubi('docDate','docDateYobi')">
+      <input type="date" id="docDate" value="${today}" onchange="updateDocDate()">
+      <span class="print-date" id="docDatePrint">${today ? formatDateWithYoubi(today) : ''}</span>
       <span id="docDateYobi">${today ? `（${getYoubi(today)}）` : ''}</span>
     </div>
     <div class="doc-title">${app.docTitle}</div>
@@ -587,16 +597,38 @@ function getYoubi(dateStr) {
   return YOUBI[d.getDay()];
 }
 
+function formatDateWithYoubi(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}/${m}/${day}（${YOUBI[d.getDay()]}）`;
+}
+
 function updateYoubi(inputId, labelId) {
   const val = document.getElementById(inputId)?.value;
   const el = document.getElementById(labelId);
   if (el) el.textContent = val ? `（${getYoubi(val)}）` : '';
 }
 
+function updatePrintDate(inputId, printId) {
+  const val = document.getElementById(inputId)?.value;
+  const el = document.getElementById(printId);
+  if (el) el.textContent = val ? formatDateWithYoubi(val) : '';
+}
+
+function updateDocDate() {
+  updateYoubi('docDate', 'docDateYobi');
+  updatePrintDate('docDate', 'docDatePrint');
+}
+
 // ===== 日数計算 =====
 function calcDays(id) {
   updateYoubi(id + '_from', id + '_from_yobi');
   updateYoubi(id + '_to', id + '_to_yobi');
+  updatePrintDate(id + '_from', id + '_from_print');
+  updatePrintDate(id + '_to', id + '_to_print');
   const from = document.getElementById(id + '_from')?.value;
   const to = document.getElementById(id + '_to')?.value;
   const el = document.getElementById(id + '_days');
