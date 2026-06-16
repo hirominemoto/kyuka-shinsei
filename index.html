@@ -390,6 +390,10 @@
     .print-date { display: inline !important; font-size: 14px; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
     .doc-date .print-date { font-size: 13px; border-bottom: none; }
     #docDateYobi { display: none !important; }
+    .duration-select label { display: none !important; }
+    .duration-select > label:first-of-type { display: none !important; }
+    .duration-select input[type="radio"] { display: none !important; }
+    #period_duration_label { display: inline !important; font-size: 13px; }
     .days-count[id$="_from_yobi"], .days-count[id$="_to_yobi"] { display: none !important; }
     .stamp { opacity: 1 !important; }
   }
@@ -544,6 +548,19 @@ function showForm(id) {
         <span class="days-count" id="${f.id}_to_yobi"></span>
         ${timeInputs}
         <span class="days-count" id="${f.id}_days"></span>
+      </div>
+      <div class="duration-select" style="margin-top:8px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <label style="font-size:13px; color:var(--ink-light);">取得区分：</label>
+        <label style="font-size:13px; cursor:pointer;">
+          <input type="radio" name="${f.id}_duration" value="一日" onchange="updateDuration('${f.id}')" checked> 一日
+        </label>
+        <label style="font-size:13px; cursor:pointer;">
+          <input type="radio" name="${f.id}_duration" value="半日（午前）" onchange="updateDuration('${f.id}')"> 半日（午前）
+        </label>
+        <label style="font-size:13px; cursor:pointer;">
+          <input type="radio" name="${f.id}_duration" value="半日（午後）" onchange="updateDuration('${f.id}')"> 半日（午後）
+        </label>
+        <span class="days-count" id="${f.id}_duration_label" style="color:var(--accent); font-weight:500;"></span>
       </div>`;
     } else if (f.type === 'date') {
       input = `<input type="date" id="${f.id}">`;
@@ -642,6 +659,19 @@ function calcDays(id) {
     else el.textContent = '';
   } else {
     el.textContent = '';
+  }
+}
+
+// ===== 取得区分更新 =====
+function updateDuration(id) {
+  const selected = document.querySelector(`input[name="${id}_duration"]:checked`);
+  const label = document.getElementById(id + '_duration_label');
+  if (!selected || !label) return;
+  const val = selected.value;
+  if (val === '一日') {
+    label.textContent = '';
+  } else {
+    label.textContent = val;
   }
 }
 
