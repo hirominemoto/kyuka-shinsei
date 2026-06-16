@@ -527,8 +527,10 @@ function showForm(id) {
         <span>）</span>` : '';
       input = `<div class="date-range">
         <input type="date" id="${f.id}_from" onchange="calcDays('${f.id}')">
+        <span class="days-count" id="${f.id}_from_yobi"></span>
         <span>〜</span>
         <input type="date" id="${f.id}_to" onchange="calcDays('${f.id}')">
+        <span class="days-count" id="${f.id}_to_yobi"></span>
         ${timeInputs}
         <span class="days-count" id="${f.id}_days"></span>
       </div>`;
@@ -547,7 +549,8 @@ function showForm(id) {
 
   document.getElementById('docArea').innerHTML = `
     <div class="doc-date">
-      <input type="date" id="docDate" value="${today}">
+      <input type="date" id="docDate" value="${today}" onchange="updateYoubi('docDate','docDateYobi')">
+      <span id="docDateYobi">（${getYoubi(today)}）</span>
     </div>
     <div class="doc-title">${app.docTitle}</div>
     <div class="doc-meta">
@@ -576,8 +579,24 @@ function showForm(id) {
   `;
 }
 
+// ===== 曜日変換 =====
+const YOUBI = ['日', '月', '火', '水', '木', '金', '土'];
+function getYoubi(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  return YOUBI[d.getDay()];
+}
+
+function updateYoubi(inputId, labelId) {
+  const val = document.getElementById(inputId)?.value;
+  const el = document.getElementById(labelId);
+  if (el) el.textContent = val ? `（${getYoubi(val)}）` : '';
+}
+
 // ===== 日数計算 =====
 function calcDays(id) {
+  updateYoubi(id + '_from', id + '_from_yobi');
+  updateYoubi(id + '_to', id + '_to_yobi');
   const from = document.getElementById(id + '_from')?.value;
   const to = document.getElementById(id + '_to')?.value;
   const el = document.getElementById(id + '_days');
