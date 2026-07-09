@@ -321,6 +321,9 @@ function calcDays(id) {
   const to   = document.getElementById(id+'_to')?.value;
   const el   = document.getElementById(id+'_days');
   if(!el) return;
+  // withTime（時刻入力あり）の場合は日数表示しない
+  const hasTime = !!document.getElementById(id+'_start_time');
+  if(hasTime) { el.textContent = ''; return; }
   if(from && to) {
     const diff = Math.round((new Date(to)-new Date(from))/(86400000))+1;
     if(diff > 0) {
@@ -380,7 +383,7 @@ function buildDocHTML(app, idx) {
         <span>〜</span>
         <input type="time" id="${fid}_end_time" value="18:00">
         <span>）</span>` : '';
-      const durationHTML = app.showDuration ? `
+      const durationHTML = (app.showDuration && !f.withTime) ? `
       <div class="duration-select">
         <span>取得区分：</span>
         <label><input type="radio" name="${fid}_duration" value="一日" onchange="updateDuration('${fid}')" checked> 一日</label>
