@@ -400,7 +400,7 @@ function buildDocHTML(app, idx) {
         <span class="days-count" id="${fid}_days"></span>
       </div>${durationHTML}`;
     } else if(f.type==='date') {
-      input = `<input type="date" id="${fid}"><span class="print-date" id="${fid}_print"></span>`;
+      input = `<input type="date" id="${fid}" onchange="updatePrintDate('${fid}','${fid}_print')"><span class="print-date" id="${fid}_print"></span>`;
     } else if(f.type==='textarea') {
       input = `<textarea id="${fid}" rows="${f.rows||2}" placeholder="${f.placeholder||''}"></textarea>`;
     } else {
