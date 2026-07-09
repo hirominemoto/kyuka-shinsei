@@ -168,6 +168,7 @@
     .doc:last-of-type { page-break-after: avoid; }
     .doc-meta-row input, .field-input input, .field-input textarea { border-bottom: 1px solid #ccc; }
     input[type="date"] { display: none !important; }
+    .time-wrap { display: none !important; }
     .print-date { display: inline !important; font-size: 14px; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
     .doc-date .print-date { font-size: 13px; border-bottom: none; }
     #docDateYobi { display: none !important; }
@@ -378,11 +379,7 @@ function buildDocHTML(app, idx) {
     let input = '';
     if(f.type==='daterange') {
       const timeInputs = f.withTime ? `
-        <span>（</span>
-        <input type="time" id="${fid}_start_time" value="09:00">
-        <span>〜</span>
-        <input type="time" id="${fid}_end_time" value="18:00">
-        <span>）</span>` : '';
+        <span class="time-wrap">（<input type="time" id="${fid}_start_time" value="09:00">〜<input type="time" id="${fid}_end_time" value="18:00">）</span>` : '';
       const durationHTML = (app.showDuration && !f.withTime) ? `
       <div class="duration-select">
         <span>取得区分：</span>
