@@ -323,7 +323,17 @@ function calcDays(id) {
   if(!el) return;
   if(from && to) {
     const diff = Math.round((new Date(to)-new Date(from))/(86400000))+1;
-    el.textContent = diff>0 ? `（${diff}日間）` : '';
+    if(diff > 0) {
+      const sel = document.querySelector(`input[name="${id}_duration"]:checked`);
+      const durVal = sel ? sel.value : '一日';
+      if(durVal === '半日（午前）' || durVal === '半日（午後）') {
+        el.textContent = '（半日）';
+      } else {
+        el.textContent = `（${diff}日間）`;
+      }
+    } else {
+      el.textContent = '';
+    }
   } else { el.textContent = ''; }
 }
 
@@ -331,6 +341,7 @@ function updateDuration(id) {
   const sel = document.querySelector(`input[name="${id}_duration"]:checked`);
   const label = document.getElementById(id+'_duration_label');
   if(label) label.textContent = sel && sel.value!=='一日' ? sel.value : '';
+  calcDays(id);
 }
 
 function updateDocDate(idx) {
